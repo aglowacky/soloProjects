@@ -1,0 +1,47 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd ">
+
+    <changeSet id="1" author="Aleksy">
+        <createTable tableName="Doctor">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstName" type="varchar(45)"/>
+            <column name="lastName" type="varchar(45)"/>
+            <column name="nip" type="varchar(45)">
+                <constraints unique="true"/>
+            </column>
+            <column name="specialization" type="varchar(45)"/>
+        </createTable>
+        <createTable tableName="Patient">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstName" type="varchar(45)"/>
+            <column name="lastName" type="varchar(45)"/>
+            <column name="pesel" type="varchar(45)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="Appointment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="patientId" type="bigint">
+                <constraints foreignKeyName="patientId" referencedTableName="patient" referencedColumnNames="id"/>
+            </column>
+            <column name="doctorId" type="bigint">
+                <constraints foreignKeyName="doctorId" referencedTableName="doctor" referencedColumnNames="id"/>
+            </column>
+            <column name="dateTime" type="datetime"/>
+            <column name="timeInMinutes" type="int"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
